@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTestProject1_addressbook_web_tests
+namespace WebAddressbookTests
 {
     class Square : Figure
     {
