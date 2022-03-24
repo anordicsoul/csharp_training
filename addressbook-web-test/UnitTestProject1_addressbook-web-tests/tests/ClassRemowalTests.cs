@@ -44,10 +44,15 @@ namespace WebAddressbookTests
         {
             OpenHomePage();
             Login(new AccountData("admin", "secret"));
-            SelectClass(2);
+            SelectClass(1);
             AcceptAlert();
             RemoveClass();
             ReturnToClassPage();
+        }
+
+        private void SelectClass(int p)
+        {
+            throw new NotImplementedException();
         }
 
         private void ReturnToClassPage()
@@ -66,9 +71,10 @@ namespace WebAddressbookTests
             acceptNextAlert = true;
         }
 
-        private void SelectClass( int index1)
+        private void SelectClass(int index, int p)
         {
-            driver.FindElement(By.Id(" + index1 + ")).Click();
+            driver.FindElement(By.XPath("//*[@id='maintable']/tbody/tr/td[" + (index + 1) + "]/input")).Click();
+            driver.FindElement(By.XPath("//*[@id='maintable']/tbody/tr/td[" + (p + 1) + "]/input")).Click();
         }
 
         private void Login(AccountData account)
