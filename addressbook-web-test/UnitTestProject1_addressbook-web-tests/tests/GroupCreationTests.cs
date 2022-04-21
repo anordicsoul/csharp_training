@@ -28,7 +28,6 @@ namespace WebAddressbookTests
             group.Header = "";
             group.Footer = "";
 
-            app.Navigator.GoToGroupsPage();
             app.Groups.Create(group);
             app.Out.Logout();
         }

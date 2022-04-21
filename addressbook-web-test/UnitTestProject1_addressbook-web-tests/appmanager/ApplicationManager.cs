@@ -18,6 +18,7 @@ namespace WebAddressbookTests
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
         protected LogoutHelper logoutHelper;
+        protected ContactHelper contactHelper;
 
         public ApplicationManager()
         {
@@ -28,6 +29,7 @@ namespace WebAddressbookTests
             navigator = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
             logoutHelper = new LogoutHelper(this);
+            contactHelper = new ContactHelper(this);
         }
 
         public IWebDriver Driver
@@ -79,6 +81,14 @@ namespace WebAddressbookTests
             get
             {
                 return logoutHelper;
+            }
+        }
+
+        public ContactHelper Contacts
+        {
+            get
+            {
+                return contactHelper;
             }
         }
     }
