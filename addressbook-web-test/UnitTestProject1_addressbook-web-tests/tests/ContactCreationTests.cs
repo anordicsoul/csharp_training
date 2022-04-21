@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ClassCreationTests
+    public class ContactCreationTests
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
@@ -39,13 +39,13 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void ClassCreationTest()
+        public void ContactCreationTest()
         {
             OpenHomePage();
             Login(new AccountData("admin", "secret"));
-            InitNewClassCreation();
-            FillClassForm(new ClassData("Tatsiana", "Kulevich"));
-            SubmitClassCreation();
+            InitNewContactCreation();
+            FillContactForm(new ContactData("Tatsiana", "Kulevich"));
+            SubmitContactCreation();
             ReturnToHomePage();
             Logout();
         }
@@ -60,12 +60,12 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("home")).Click();
         }
 
-        private void SubmitClassCreation()
+        private void SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
         }
 
-        private void FillClassForm(ClassData group)
+        private void FillContactForm(ContactData group)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
@@ -75,7 +75,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("lastname")).SendKeys(group.Lastname);
         }
 
-        private void InitNewClassCreation()
+        private void InitNewContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
         }

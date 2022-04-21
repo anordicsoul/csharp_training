@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ClassRemowalTests
+    public class ContactRemowalTests
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
@@ -40,57 +40,24 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void ClassRemowalTest()
-        {
-            OpenHomePage();
-            Login(new AccountData("admin", "secret"));
-            SelectClass(1);
-            AcceptAlert();
-            RemoveClass();
-            ReturnToClassPage();
-        }
-
-        private void SelectClass(int p)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ReturnToClassPage()
-        {
-            driver.FindElement(By.LinkText("home")).Click();
-        }
-
-        private void RemoveClass()
-        {
-            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
-            Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
-        }
-
-        private void AcceptAlert()
-        {
-            acceptNextAlert = true;
-        }
-
-        private void SelectClass(int index, int p)
-        {
-            driver.FindElement(By.XPath("//*[@id='maintable']/tbody/tr/td[" + (index + 1) + "]/input")).Click();
-            driver.FindElement(By.XPath("//*[@id='maintable']/tbody/tr/td[" + (p + 1) + "]/input")).Click();
-        }
-
-        private void Login(AccountData account)
-        {
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(account.Username);
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
-            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
-        }
-
-        private void OpenHomePage()
+        public void ContactRemowalTest()
         {
             driver.Navigate().GoToUrl(baseURL);
+            driver.FindElement(By.Name("user")).Click();
+            driver.FindElement(By.Name("user")).Clear();
+            driver.FindElement(By.Name("user")).SendKeys("admin");
+            driver.FindElement(By.Name("pass")).Click();
+            driver.FindElement(By.Name("pass")).Clear();
+            driver.FindElement(By.Name("pass")).SendKeys("secret");
+            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
+            driver.FindElement(By.LinkText("home")).Click();
+            driver.FindElement(By.Id("3")).Click();
+            acceptNextAlert = true;
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            driver.FindElement(By.LinkText("home")).Click();
+            driver.FindElement(By.LinkText("Logout")).Click();
         }
-
         private bool IsElementPresent(By by)
         {
             try
