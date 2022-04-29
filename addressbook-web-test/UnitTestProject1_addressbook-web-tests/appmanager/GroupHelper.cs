@@ -42,6 +42,7 @@ namespace WebAddressbookTests
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();
+            manager.Out.Logout();
             return this;
         }
 

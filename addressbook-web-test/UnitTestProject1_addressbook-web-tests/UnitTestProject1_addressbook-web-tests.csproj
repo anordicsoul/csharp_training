@@ -65,6 +65,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="appmanager\AlertHelper.cs" />
     <Compile Include="appmanager\ContactHelper.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="appmanager\ApplicationManager.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="figure\Figure.cs" />
     <Compile Include="model\GroupData.cs" />
     <Compile Include="appmanager\GroupHelper.cs" />
+    <Compile Include="tests\ContactModificationTests.cs" />
     <Compile Include="tests\ContactRemowalTests.cs" />
     <Compile Include="tests\GroupModificationTests.cs" />
     <Compile Include="tests\GroupRemowalTests.cs" />
