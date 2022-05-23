@@ -9,7 +9,7 @@ namespace WebAddressbookTests
 {
     [TestFixture]
 
-    public class ContactModificationTests : TestBase
+    public class ContactModificationTests : AuthTestBase
     {
         [Test]
         public void ContactModificationTest()
@@ -39,7 +39,12 @@ namespace WebAddressbookTests
             newData.Phone2 = "+56785898";
             newData.Notes = "123456";
 
-            app.Contacts.Modify(newData); 
+            app.Contacts.Modify(newData);
+
+            if (!app.Contacts.AContact(2))
+            {
+                app.Contacts.Create(new ContactData("cont5"));
+            }
         }
     }
 }
