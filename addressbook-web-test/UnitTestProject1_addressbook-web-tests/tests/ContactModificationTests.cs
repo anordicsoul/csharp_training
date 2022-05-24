@@ -14,6 +14,11 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
+            if (!app.Contacts.AContact(2))
+            {
+                app.Contacts.Create(new ContactData("cont5"));
+            }
+
             ContactData newData = new ContactData("Natalia");
             newData.Middlname = "Alexandrowna";
             newData.Lastname = "Bezmen";
@@ -40,11 +45,6 @@ namespace WebAddressbookTests
             newData.Notes = "123456";
 
             app.Contacts.Modify(newData);
-
-            if (!app.Contacts.AContact(2))
-            {
-                app.Contacts.Create(new ContactData("cont5"));
-            }
         }
     }
 }
