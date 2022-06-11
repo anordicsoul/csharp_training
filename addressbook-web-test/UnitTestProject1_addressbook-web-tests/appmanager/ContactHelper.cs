@@ -22,6 +22,22 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToContactsPage();
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement element in elements)
+            {
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                ContactData listData = new ContactData(cells[2].Text);
+                listData.Lastname = cells[1].Text;
+                contacts.Add(listData);
+            }
+
+            return contacts;
+        }
+
         public ContactHelper Remove(int v)
         {
             manager.Navigator.GoToContactsPage();
