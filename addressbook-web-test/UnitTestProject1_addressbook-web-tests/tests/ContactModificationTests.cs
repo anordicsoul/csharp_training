@@ -16,10 +16,10 @@ namespace WebAddressbookTests
         {
             if (!app.Contacts.AContact(2))
             {
-                app.Contacts.Create(new ContactData("cont5"));
+                app.Contacts.Create(new ContactData("cont5", ""));
             }
 
-            ContactData newData = new ContactData("Natalia");
+            ContactData newData = new ContactData("Natalia", "Bezmen");
             newData.Middlname = "Alexandrowna";
             newData.Lastname = "Bezmen";
             newData.Nickname = "anordicsoul";
