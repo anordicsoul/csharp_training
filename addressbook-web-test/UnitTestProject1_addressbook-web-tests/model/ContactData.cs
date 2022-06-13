@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -10,6 +11,7 @@ namespace WebAddressbookTests
     {
         private string allPhones;
         private string allEmails;
+        private string detailedInformation;
 
         public ContactData(string firstname, string lastname)
         {
@@ -86,14 +88,14 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work) + CleanUp(Fax)).Trim();
+                    return (CleanUpPhones(Home) + CleanUpPhones(Mobile) + CleanUpPhones(Work) + CleanUpPhones(Fax)).Trim();
                 }
             }
             set
             { allPhones = value; }
         }
 
-        private string CleanUp(string phone)
+        private string CleanUpPhones(string phone)
         {
             if (phone == null || phone == "")
             {
@@ -146,5 +148,64 @@ namespace WebAddressbookTests
         public string Phone2 { get; set; }
 
         public string Notes { get; set; }
+
+        public string DetailedInformation
+        {
+            get
+            {
+                if(detailedInformation != null)
+                {
+                    return detailedInformation;
+                }
+                else
+                {
+                    if (Lastname != "")
+                    {
+                        Lastname = " " + Lastname;
+                    }
+                    return (Firstname + Lastname + "\r\n" + CleanUpAddress(Address) + DetaliedPhones(Home, Mobile, Work, Fax) + "\r\n" + AllEmails).Trim();
+                }
+            }
+            set
+            {
+                detailedInformation = value;
+            }
+        }
+
+        public string DetaliedPhones(string homePhone, string mobilePhone, string workPhone, string fax)
+
+        {
+            if (homePhone == "" & mobilePhone == "" & workPhone == "" & fax == "")
+            {
+                return "";
+            }
+            if (homePhone != "")
+            {
+                homePhone = "H: " + homePhone + "\r\n";
+            }
+            if (mobilePhone != "")
+            {
+                mobilePhone = "M: " + mobilePhone + "\r\n";
+            }
+            if (workPhone != "")
+            {
+                workPhone = "W: " + workPhone + "\r\n";
+            }
+            if (fax != "")
+            {
+                fax = "F: " + fax + "\r\n";
+            }
+            return "\r\n" + homePhone + mobilePhone + workPhone + fax;
+        }
+
+        private string CleanUpAddress(string address)
+        {
+            if(address == null || address == "")
+            {
+                return "";
+            }
+            return address.Replace(" ", "") + "\r\n";
+        }
     }
+
     }

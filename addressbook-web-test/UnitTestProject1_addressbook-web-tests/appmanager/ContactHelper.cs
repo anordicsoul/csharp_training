@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -70,6 +71,31 @@ namespace WebAddressbookTests
                 AllEmails = allEmails,
                 AllPhones = allPhones
             };
+        }
+
+        public ContactData GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.GoToContactsPage();
+            driver.FindElement(By.XPath("//tr[@name='entry'][" + (index + 1) + "]//img[@src='icons/status_online.png']")).Click();
+
+            //string[] cells = driver.FindElement(By.CssSelector("div#content")).FindElement(By.TagName("b")).Text.Split(' ');
+            //string firstname = cells[0];
+            //string lastname = cells[1];
+
+            string detailedContactInformation = driver.FindElement(By.CssSelector("div#content")).Text;
+
+            return new ContactData(null, null)
+            {
+                DetailedInformation = detailedContactInformation
+            };
+        }
+
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.GoToContactsPage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
         }
 
         private List<ContactData> contactCache = null;
