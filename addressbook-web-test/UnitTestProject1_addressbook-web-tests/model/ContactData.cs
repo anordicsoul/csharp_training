@@ -58,15 +58,7 @@ namespace WebAddressbookTests
 
         public string Firstname { get; set; }
 
-        public string Middlname { get; set; }
-
         public string Lastname { get; set; }
-
-        public string Nickname { get; set; }
-
-        public string Title { get; set; }
-
-        public string Company { get; set; }
 
         public string Address { get; set; }
 
@@ -120,7 +112,19 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (Email + "\r\n" + Email2 + "\r\n" + Email3).Trim();
+                    if (Email != "")
+                    {
+                        Email = Email + "\r\n";
+                    }
+                    if (Email2 != "")
+                    {
+                        Email2 = Email2 + "\r\n";
+                    }
+                    if (Email3 != "")
+                    {
+                        Email3 = Email3 + "\r\n";
+                    }
+                    return (Email + Email2 + Email3).Trim();
                 }
             }
             set
@@ -128,26 +132,6 @@ namespace WebAddressbookTests
                 allEmails = value;
             }
         }
-
-        public string Homepage { get; set; }
-
-        public string Bday { get; set; }
- 
-        public string Bmonth { get; set; }
-
-        public string Byear { get; set; }
-
-        public string Aday { get; set; }
- 
-        public string Amonth { get; set; }
-
-        public string Ayear { get; set; }
- 
-        public string Address2 { get; set; }
- 
-        public string Phone2 { get; set; }
-
-        public string Notes { get; set; }
 
         public string DetailedInformation
         {
@@ -163,7 +147,7 @@ namespace WebAddressbookTests
                     {
                         Lastname = " " + Lastname;
                     }
-                    return (Firstname + Lastname + "\r\n" + CleanUpAddress(Address) + DetaliedPhones(Home, Mobile, Work, Fax) + "\r\n" + AllEmails).Trim();
+                    return (Firstname + Lastname + "\r\n" + Address + "\r\n" + DetaliedPhones(Home, Mobile, Work, Fax) + "\r\n" + AllEmails).Trim();
                 }
             }
             set
@@ -196,15 +180,6 @@ namespace WebAddressbookTests
                 fax = "F: " + fax + "\r\n";
             }
             return "\r\n" + homePhone + mobilePhone + workPhone + fax;
-        }
-
-        private string CleanUpAddress(string address)
-        {
-            if(address == null || address == "")
-            {
-                return "";
-            }
-            return address.Replace(" ", "") + "\r\n";
         }
     }
 

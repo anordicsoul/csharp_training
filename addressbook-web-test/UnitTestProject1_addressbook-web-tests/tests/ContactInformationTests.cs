@@ -29,7 +29,7 @@ namespace WebAddressbookTests
         public void TestDetailedContactInformation()
         {
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
-            ContactData fromDetails = app.Contacts.GetContactInformationFromTable(0);
+            ContactData fromDetails = app.Contacts.GetContactInformationFromDetails(0);
 
             //verification
             Assert.AreEqual(fromForm.DetailedInformation, fromDetails.DetailedInformation);

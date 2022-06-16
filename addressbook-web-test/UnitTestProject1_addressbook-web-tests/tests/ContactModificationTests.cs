@@ -20,11 +20,9 @@ namespace WebAddressbookTests
             }
 
             ContactData newData = new ContactData("Natalia", "Bezmen");
-            newData.Middlname = "Alexandrowna";
+
             newData.Lastname = "Bezmen";
-            newData.Nickname = "anordicsoul";
-            newData.Title = "";
-            newData.Company = "apple";
+
             newData.Address = "Generala Maczka 8";
             newData.Home = "";
             newData.Mobile = "+48723703429";
@@ -33,16 +31,7 @@ namespace WebAddressbookTests
             newData.Email = "kulevich@gmail.com";
             newData.Email2 = "";
             newData.Email3 = "";
-            newData.Homepage = "https://software-testing.ru/login";
-            newData.Bday = "21";
-            newData.Bmonth = "June";
-            newData.Byear = "1998";
-            newData.Aday = "15";
-            newData.Amonth = "March";
-            newData.Ayear = "1985";
-            newData.Address2 = "Mickiewicza 15";
-            newData.Phone2 = "+56785898";
-            newData.Notes = "123456";
+
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 

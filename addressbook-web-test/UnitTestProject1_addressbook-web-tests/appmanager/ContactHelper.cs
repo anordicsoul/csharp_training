@@ -43,10 +43,10 @@ namespace WebAddressbookTests
             return new ContactData(firstName, lastName)
             {
                 Address = address,
-                Home = homePhone,
                 Email = email,
                 Email2 = email2,
                 Email3 = email3,
+                Home = homePhone,
                 Mobile = mobilePhone,
                 Work = workPhone,
                 Fax = fax
@@ -78,13 +78,13 @@ namespace WebAddressbookTests
             manager.Navigator.GoToContactsPage();
             driver.FindElement(By.XPath("//tr[@name='entry'][" + (index + 1) + "]//img[@src='icons/status_online.png']")).Click();
 
-            //string[] cells = driver.FindElement(By.CssSelector("div#content")).FindElement(By.TagName("b")).Text.Split(' ');
-            //string firstname = cells[0];
-            //string lastname = cells[1];
+            string[] cells = driver.FindElement(By.CssSelector("div#content")).FindElement(By.TagName("b")).Text.Split(' ');
+            string firstName = cells[0];
+            string lastName = cells[1];
 
             string detailedContactInformation = driver.FindElement(By.CssSelector("div#content")).Text;
 
-            return new ContactData(null, null)
+            return new ContactData(firstName, lastName)
             {
                 DetailedInformation = detailedContactInformation
             };
@@ -159,11 +159,8 @@ namespace WebAddressbookTests
         public ContactHelper FillContactForm(ContactData contact)
         {
             Type(By.Name("firstname"), contact.Firstname);
-            Type(By.Name("middlename"), contact.Middlname);
             Type(By.Name("lastname"), contact.Lastname);
-            Type(By.Name("nickname"), contact.Nickname);
-            Type(By.Name("title"), contact.Title);
-            Type(By.Name("company"), contact.Company);
+
             Type(By.Name("address"), contact.Address);
             Type(By.Name("home"), contact.Home);
             Type(By.Name("mobile"), contact.Mobile);
@@ -172,24 +169,7 @@ namespace WebAddressbookTests
             Type(By.Name("email"), contact.Email);
             Type(By.Name("email2"), contact.Email2);
             Type(By.Name("email3"), contact.Email3);
-            Type(By.Name("homepage"), contact.Homepage);
-            driver.FindElement(By.Name("bday")).Click();
-            new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(contact.Bday);
-            driver.FindElement(By.XPath("//option[@value='1']")).Click();
-            driver.FindElement(By.Name("bmonth")).Click();
-            new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText(contact.Bmonth );
-            driver.FindElement(By.XPath("//option[@value='January']")).Click();
-            Type(By.Name("byear"), contact.Byear);
-            driver.FindElement(By.Name("aday")).Click();
-            new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(contact.Aday);
-            driver.FindElement(By.XPath("//div[@id='content']/form/select[3]/option[12]")).Click();
-            driver.FindElement(By.Name("amonth")).Click();
-            new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(contact.Amonth);
-            driver.FindElement(By.XPath("//div[@id='content']/form/select[4]/option[2]")).Click();
-            Type(By.Name("ayear"), contact.Ayear);
-            Type(By.Name("address2"), contact.Address2);
-            Type(By.Name("phone2"), contact.Phone2);
-            Type(By.Name("notes"), contact.Notes);
+
             return this;
         }
 
