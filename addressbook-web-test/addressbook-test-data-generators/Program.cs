@@ -30,10 +30,10 @@ namespace WebAddressbookTests
                     Footer = TestBase.GenerateRandomString(10)
                 });
             }
-            if (format == "excel")
-            {
+           if (format == "excel")
+          {
                 writeGroupsToExcelFile(groups, filename);
-            }
+          }
             else
             {
                 StreamWriter writer = new StreamWriter(filename);

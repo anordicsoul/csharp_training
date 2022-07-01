@@ -147,7 +147,7 @@ namespace WebAddressbookTests
                     {
                         Lastname = " " + Lastname;
                     }
-                    return (Firstname + Lastname + "\r\n" + Address + "\r\n" + DetaliedPhones(Home, Mobile, Work, Fax) + "\r\n" + AllEmails).Trim();
+                    return (Firstname + Lastname + "\r\n" + Address + DetaliedPhones(Home, Mobile, Work, Fax) + "\r\n" + AllEmails).Trim();
                 }
             }
             set
