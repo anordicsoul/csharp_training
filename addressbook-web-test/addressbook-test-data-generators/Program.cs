@@ -16,72 +16,70 @@ namespace WebAddressbookTests
     {
         static void Main(string[] args)
         {
-            //System.Console.Out.Write("hello!");
-            int count = Convert.ToInt32(args[0]);
-            string filename = args[1];
-            string format = args[2];
-
+            string type = args[0];
+            int count = Convert.ToInt32(args[1]);
+            StreamWriter writer = new StreamWriter(args[2]);
+            string format = args[3];
             List<GroupData> groups = new List<GroupData>();
-            for (int i = 0; i < count; i++)
+            List<ContactData> contacts = new List<ContactData>();
+
+            if (type == "group")
             {
-                groups.Add(new GroupData(TestBase.GenerateRandomString(10))
+                for (int i = 0; i < count; i++)
                 {
-                    Header = TestBase.GenerateRandomString(10),
-                    Footer = TestBase.GenerateRandomString(10)
-                });
+                    groups.Add(new GroupData(TestBase.GenerateRandomString(10))
+                    {
+                        Header = TestBase.GenerateRandomString(15),
+                        Footer = TestBase.GenerateRandomString(15)
+                    });
+                }
+                    if (format == "xml")
+                    {
+                        writeGroupsToXmlFile(groups, writer);
+                    }
+                    else if (format == "json")
+                    {
+                        writeGroupsToJsonFile(groups, writer);
+                    }
+                    else
+                    {
+                        System.Console.Out.Write("Unrecognized format " + format);
+                }
             }
-           if (format == "excel")
-          {
-                writeGroupsToExcelFile(groups, filename);
-          }
-            else
+            else if (type == "contacts")
             {
-                StreamWriter writer = new StreamWriter(filename);
-                if (format == "csv")
+                for (int i = 0; i < count; i++)
                 {
-                    writeGroupsToCsvFile(groups, writer);
+                    contacts.Add(new ContactData(TestBase.GenerateRandomString(10), TestBase.GenerateRandomString(10))
+                    {
+                        Address = TestBase.GenerateRandomString(15),
+                        Home = TestBase.GenerateRandomString(10),
+                        Mobile = TestBase.GenerateRandomString(10),
+                        Work = TestBase.GenerateRandomString(10),
+                        Fax = TestBase.GenerateRandomString(10),
+                        Email = TestBase.GenerateRandomString(10),
+                        Email2 = TestBase.GenerateRandomString(10),
+                        Email3 = TestBase.GenerateRandomString(10)
+                    });
                 }
-                else if (format == "xml")
-                {
-                    writeGroupsToXmlFile(groups, writer);
+                   if (format == "xml")
+                    {
+                        writeContactsToXmlFile(contacts, writer);
+                    }
+                    else if (format == "json")
+                    {
+                        writeContactsToJsonFile(contacts, writer);
+                    }
+                    else
+                    {
+                        System.Console.Out.Write("Unrecognized format " + format);
+                    }
+                  }
+                    writer.Close();
                 }
-                else if (format == "json")
-                {
-                    writeGroupsToJsonFile(groups, writer);
-                }
-                else
-                {
-                    System.Console.Out.Write("Unrecognized format" + format);
-                }
-                writer.Close();
-            }
-        }
+            
 
-        static void writeGroupsToExcelFile(List<GroupData> groups, string filename)
-        {
-            Excel.Application app = new Excel.Application();
-            app.Visible = true;
-            Excel.Workbook wb = app.Workbooks.Add();
-            Excel.Worksheet sheet = wb.ActiveSheet;
-
-            int row = 1;
-            foreach (GroupData group in groups)
-            {
-                sheet.Cells[row, 1] = group.Name;
-                sheet.Cells[row, 2] = group.Header;
-                sheet.Cells[row, 3] = group.Footer;
-                row++;
-            }
-            string fullPath = Path.Combine(Directory.GetCurrentDirectory(), filename);
-            File.Delete(fullPath);
-            wb.SaveAs(fullPath);
-
-            wb.Close();
-            app.Visible = false;
-            app.Quit();
-        }
-
-        static void writeGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
+        private static void writeGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
         {   
             foreach (GroupData group in groups)
             {
@@ -90,14 +88,24 @@ namespace WebAddressbookTests
             }
         }
 
-        static void writeGroupsToXmlFile(List<GroupData> groups, StreamWriter writer)
+        private static void writeGroupsToXmlFile(List<GroupData> groups, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
         }
 
-        static void writeGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
+        private static void writeGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
         {
             writer.Write(JsonConvert.SerializeObject(groups, Newtonsoft.Json.Formatting.Indented));
+        }
+
+        private static void writeContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
+        {
+            new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
+        }
+
+        private static void writeContactsToJsonFile(List<ContactData> contacts, StreamWriter writer)
+        {
+            writer.Write(JsonConvert.SerializeObject(contacts, Newtonsoft.Json.Formatting.Indented));
         }
     }
 }

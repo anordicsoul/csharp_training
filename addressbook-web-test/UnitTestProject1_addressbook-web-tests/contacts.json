@@ -1,0 +1,32 @@
+[
+  {
+    "Firstname": ">",
+    "Lastname": "[",
+    "Address": ".",
+    "Home": ">",
+    "Mobile": "I",
+    "Work": ":",
+    "Fax": "?",
+    "AllPhones": ">\r\nI\r\n:\r\n?",
+    "Email": "J",
+    "Email2": "R",
+    "Email3": "?",
+    "AllEmails": "J\r\nR\r\n?",
+    "DetailedInformation": "> [\r\n.\r\n\r\nH: >\r\nM: I\r\nW: :\r\nF: ?\r\n\r\nJ\r\n\r\nR\r\n\r\n?"
+  },
+  {
+    "Firstname": "C",
+    "Lastname": "&",
+    "Address": "8",
+    "Home": "`",
+    "Mobile": "7",
+    "Work": ">",
+    "Fax": "F",
+    "AllPhones": "`\r\n7\r\n>\r\nF",
+    "Email": "9",
+    "Email2": "=",
+    "Email3": ":",
+    "AllEmails": "9\r\n=\r\n:",
+    "DetailedInformation": "C &\r\n8\r\n\r\nH: `\r\nM: 7\r\nW: >\r\nF: F\r\n\r\n9\r\n\r\n=\r\n\r\n:"
+  }
+]
