@@ -9,7 +9,7 @@ namespace WebAddressbookTests
 {
     [TestFixture]
 
-    public class ContactModificationTests : AuthTestBase
+    public class ContactModificationTests : ContactTestBase
     {
         [Test]
         public void ContactModificationTest()
@@ -33,11 +33,11 @@ namespace WebAddressbookTests
             newData.Email3 = "";
 
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
+            ContactData oldData = oldContacts[0];
+            app.Contacts.Modify(oldData, newData);
+            List<ContactData> newContacts = ContactData.GetAll();
 
-            app.Contacts.Modify(newData);
-
-            List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts[0].Firstname = newData.Firstname;
             oldContacts[0].Lastname = newData.Lastname;
             oldContacts.Sort();

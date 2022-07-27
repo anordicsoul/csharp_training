@@ -121,16 +121,35 @@ namespace WebAddressbookTests
             manager.Navigator.GoToContactsPage();
             SelectContact(v);
             RemoveContact();
-            manager.Alerts.AcceptAlert();
+            //manager.Alerts.AcceptAlert();
             manager.Navigator.ReturnToHomePage();
-            manager.Out.Logout();
             return this;
         }
 
-        public ContactHelper Modify( ContactData newData)
+        public ContactHelper Remove(ContactData contact)
         {
             manager.Navigator.GoToContactsPage();
-            InitContactModification(0);
+            SelectContact(contact.Id);
+            RemoveContact();
+            //manager.Alerts.AcceptAlert();
+            manager.Navigator.ReturnToHomePage();
+            return this;
+        }
+
+        public ContactHelper Modify(int index, ContactData newData)
+        {
+            manager.Navigator.GoToContactsPage();
+            SelectContact(index);
+            FillContactForm(newData);
+            SubmitContactModification();
+            manager.Navigator.ReturnToHomePage();
+            return this;
+        }
+
+        public ContactHelper Modify(ContactData initialData, ContactData newData)
+        {
+            manager.Navigator.GoToContactsPage();
+            SelectContact(initialData.Id);
             FillContactForm(newData);
             SubmitContactModification();
             manager.Navigator.ReturnToHomePage();
@@ -146,6 +165,7 @@ namespace WebAddressbookTests
 
         public ContactHelper InitContactModification(int index)
         {
+
             driver.FindElement(By.XPath("//tr[@name='entry'][" + (index + 1) + "]//img[@src='icons/pencil.png']")).Click();
             return this;
         }
@@ -189,6 +209,12 @@ namespace WebAddressbookTests
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + index + "]/td/input")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(String id)
+        {
+            driver.FindElement(By.XPath("//a[@href='edit.php?id=" + id + "']")).Click();
             return this;
         }
 
