@@ -25,18 +25,18 @@ namespace WebAddressbookTests
         {
             if (Object.ReferenceEquals(other, null))
             {
-               return false;
+                return false;
             }
             if (Object.ReferenceEquals(this, other))
             {
-               return true;
+                return true;
             }
             return Name == other.Name;
         }
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode(); 
+            return Name.GetHashCode();
         }
 
         public override string ToString()
@@ -50,7 +50,7 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return Name.CompareTo(other.Name); 
+            return Name.CompareTo(other.Name);
         }
         [Column(Name = "group_name")]
         public string Name { get; set; }
@@ -72,14 +72,15 @@ namespace WebAddressbookTests
             }
         }
 
-       // public List<ContactData> GetContacts()
-       // {
-         //   using (AddressbookDB db = new AddressbookDB())
-          //  {
-            //    return (from c in db.Contacts
-             //           from gcr in db.GCR.Where(p => p.GroupId == Id && p.ContactId = c.Id)
-               //         select c).Distinct().ToList();
-          //  }//
+        public List<ContactData> GetContacts()
+        {
+            using (AddressbookDB db = new AddressbookDB())
+            {
+                return (from c in db.Contacts
+                        from gcr in db.GCR.Where(p => p.GroupId == Id && p.ContactId == c.Id && c.Deprecated == "0000-00-00 00:00:00")
+                        select c).Distinct().ToList();
+            }
         }
     }
+}
 
