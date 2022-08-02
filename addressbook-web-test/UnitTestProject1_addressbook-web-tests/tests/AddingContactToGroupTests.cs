@@ -13,19 +13,62 @@ namespace WebAddressbookTests
 
         public void TestAddingContactToGroup()
         {
-            GroupData group = GroupData.GetAll()[0];
-            List<ContactData> oldList = group.GetContacts();
-            ContactData contact = ContactData.GetAll().Except(oldList).First();
+            if (!app.Contacts.AContact(2))
+            {
+                app.Contacts.Create(new ContactData("cont5", ""));
+            }
+            if (!app.Groups.AGroup(1))
+            {
+                app.Groups.Create(new GroupData("gr5"));
+            }
 
-            // actions
-            app.Contacts.AddContactToGroup(contact, group);
+            List<GroupData> groups = GroupData.GetAll();
+            List<ContactData> contacts = ContactData.GetAll();
+            bool ft = false;
+            contacts.Sort();
 
-            List<ContactData> newList = group.GetContacts();
-            oldList.Add(contact);
-            newList.Sort();
-            oldList.Sort();
+           foreach (GroupData g in groups)
+            {
+                List<ContactData> groupContacts = g.GetContacts();
+                if (groupContacts.Count == 0)
+                {
+                    app.Contacts.AddContactToGroup(contacts[0], g);
+                    List<ContactData> newList = g.GetContacts();
+                    groupContacts.Add(contacts[0]);
+                    groupContacts.Sort();
+                    newList.Sort();
+                    Assert.AreEqual(groupContacts, newList);
+                    ft = true;
+                    return;
+                }
+                groupContacts.Sort();
+                int i = 0;
+                foreach (ContactData contactToAdd in groupContacts)
+                {
+                    if (!contacts[i].Equals(contactToAdd))
+                    {
+                        app.Contacts.AddContactToGroup(contactToAdd, g);
+                        List<ContactData> newList = g.GetContacts();
+                        groupContacts.Add(contactToAdd);
+                        groupContacts.Sort();
+                        newList.Sort();
+                        Assert.AreEqual(groupContacts, newList);
+                        ft = true;
+                        return;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
 
-            Assert.AreEqual(oldList, newList);
+           if (ft == false)
+            {
+                GroupData additionalGroup = new GroupData("additional");
+                app.Groups.Create(additionalGroup);
+                app.Contacts.AddContactToGroup(contacts[0], additionalGroup);
+            }
         }
     }
 }
