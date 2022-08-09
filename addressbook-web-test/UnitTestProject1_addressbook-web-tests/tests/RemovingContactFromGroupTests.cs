@@ -12,9 +12,10 @@ namespace WebAddressbookTests
         [Test]
 
         public void TestRemovingContactFromGroup()
+
         {
 
-             List < GroupData > groups = GroupData.GetAll();
+            List<GroupData> groups = GroupData.GetAll();
             bool ft = false;
 
             foreach (GroupData g in groups)
@@ -38,6 +39,9 @@ namespace WebAddressbookTests
                 List<ContactData> groupContacts = groups[0].GetContacts();
                 List<ContactData> contacts = ContactData.GetAll();
                 app.Contacts.AddContactToGroup(contacts[0], groups[0]);
+
+                ContactData contactToRemove = groups[1].GetContacts().First();
+
                 app.Contacts.RemoveContactFromGroup(contacts[0], groups[0]);
                 List<ContactData> newList = groups[0].GetContacts();
                 groupContacts.RemoveAt(0);
