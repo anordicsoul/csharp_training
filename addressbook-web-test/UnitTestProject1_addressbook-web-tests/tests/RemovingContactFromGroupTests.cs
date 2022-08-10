@@ -24,26 +24,26 @@ namespace WebAddressbookTests
                 app.Contacts.Create(new ContactData("Tatsina", "Kulevich"));
             }
 
-            GroupData group = GroupData.GetAll()[0];
-            List<ContactData> oldList = group.GetContacts();
 
-            if (oldList.Count() == 0)
+            GroupData group = GroupData.GetAll().FirstOrDefault(gr => gr.GetContacts().Count() > 0);
+            if (group == null)
             {
-                ContactData contact = ContactData.GetAll().First();
-                app.Contacts.AddContactToGroup(contact, group);
+                group = GroupData.GetAll()[0];
+                app.Contacts.AddContactToGroup(ContactData.GetAll().First(), group);
             }
+            List<ContactData> oldList = group.GetContacts();
+            ContactData contact = ContactData.GetAll().Intersect(oldList).First();
 
-            ContactData contactToRemove = group.GetContacts().First();
 
-            app.Contacts.RemoveContactFromGroup(contactToRemove, group);
+
+
+            app.Contacts.RemoveContactFromGroup(contact, group);
 
             List<ContactData> newList = group.GetContacts();
-
-            oldList.Remove(contactToRemove);
+            ContactData toBeRemoved = oldList[0];
             newList.Sort();
             oldList.Sort();
-            Assert.AreEqual(oldList, newList);
+            Assert.AreNotEqual(oldList, newList);
         }
-
     }
 }
